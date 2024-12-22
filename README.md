@@ -1,4 +1,6 @@
-# functions
+# pdf_manager
+
+## functions
 
 [ ] bulk pdf password protect
-# pdf_manager
+

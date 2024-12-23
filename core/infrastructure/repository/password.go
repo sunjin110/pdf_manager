@@ -59,6 +59,26 @@ func (p *passwordRepo) GetByTargetName(ctx context.Context, targetName string) (
 	return d.ToModel(), nil
 }
 
+func (p *passwordRepo) FindByTargetNames(ctx context.Context, targetNames []string) (model.Passwords, error) {
+
+	targetNameItfs := make([]any, 0, len(targetNames))
+	for _, targetName := range targetNames {
+		targetNameItfs = append(targetNameItfs, targetName)
+	}
+
+	sb := sqlbuilder.Select("*").From("passwords")
+	sb.Where(
+		sb.In("target_name", targetNameItfs...),
+	)
+	query, args := sb.BuildWithFlavor(sqlbuilder.SQLite)
+
+	d := dto.Passwords{}
+	if err := p.db.SelectContext(ctx, &d, query, args...); err != nil {
+		return model.Passwords{}, fmt.Errorf("failed FindByTargetNames. err: %w", err)
+	}
+	return d.ToModel(), nil
+}
+
 func (p *passwordRepo) Insert(ctx context.Context, password model.Password) error {
 	stmt, err := p.db.PrepareNamedContext(ctx, sqlitequery.InsertPassword)
 	if err != nil {

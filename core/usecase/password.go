@@ -15,7 +15,7 @@ type Password interface {
 	RegistPasswords(ctx context.Context, passwords model.Passwords) error
 	DeleteAllPasswords(ctx context.Context) error
 	GetAllPasswords(ctx context.Context) (model.Passwords, error)
-	RegistPasswordsByCSV(ctx context.Context, csvReader io.ReadCloser) error
+	RegistPasswordsByCSV(ctx context.Context, csvReader io.Reader) error
 }
 
 type password struct {
@@ -45,7 +45,7 @@ func (p *password) RegistPasswords(ctx context.Context, passwords model.Password
 	return nil
 }
 
-func (p *password) RegistPasswordsByCSV(ctx context.Context, csvReader io.ReadCloser) error {
+func (p *password) RegistPasswordsByCSV(ctx context.Context, csvReader io.Reader) error {
 	lines, err := csv.NewReader(csvReader).ReadAll()
 	if err != nil {
 		return fmt.Errorf("failed new csv reader. err: %w", err)

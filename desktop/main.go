@@ -27,7 +27,7 @@ func main() {
 		title, nil, nil, content,
 	)
 
-	splitContent := container.NewHSplit(makeNav(uidata.Navigations, title), mainContainer)
+	splitContent := container.NewHSplit(makeNav(uidata.Navigations, title, content), mainContainer)
 	splitContent.SetOffset(0.3)
 	w.SetContent(splitContent)
 
@@ -35,7 +35,7 @@ func main() {
 	w.ShowAndRun()
 }
 
-func makeNav(navigations uimodel.Navigations, title *widget.Label) fyne.CanvasObject {
+func makeNav(navigations uimodel.Navigations, title *widget.Label, content *fyne.Container) fyne.CanvasObject {
 	navigationMap := make(map[string]uimodel.Navigation, len(navigations))
 	for _, navigation := range navigations {
 		navigationMap[navigation.ID] = navigation
@@ -67,6 +67,7 @@ func makeNav(navigations uimodel.Navigations, title *widget.Label) fyne.CanvasOb
 	tree.OnSelected = func(id widget.TreeNodeID) {
 		navigation := navigationMap[id]
 		title.SetText(navigation.Title)
+		content.Objects = []fyne.CanvasObject{navigation.View(nil)}
 	}
 	return tree
 }

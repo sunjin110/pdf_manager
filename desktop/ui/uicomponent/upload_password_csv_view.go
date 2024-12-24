@@ -39,6 +39,7 @@ func UploadCompanyAndPasswordCSVView(w fyne.Window) fyne.CanvasObject {
 	})
 
 	content := container.NewVBox(
+		widget.NewLabel("会社ごとのパスワード登録"),
 		textArea,
 		uploadButton,
 	)

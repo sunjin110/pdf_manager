@@ -7,8 +7,10 @@ import (
 )
 
 func UploadCompanyAndPasswordCSVView(w fyne.Window) fyne.CanvasObject {
-	content := container.NewStack(
+	content := container.NewVBox(
 		widget.NewLabel("アップロードするお"),
+		widget.NewLabel("アップロードするお"),
+		widget.NewLabel("アップロードするお======"),
 	)
 	return content
 }

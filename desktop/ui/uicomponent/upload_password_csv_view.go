@@ -32,9 +32,7 @@ func UploadCompanyAndPasswordCSVView(w fyne.Window) fyne.CanvasObject {
 				dialog.ShowError(err, w)
 				return
 			}
-
 			textArea.SetText(string(content))
-
 		}, w)
 	})
 

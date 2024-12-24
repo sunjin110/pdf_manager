@@ -1,25 +1,34 @@
 package main
 
 import (
+	"fmt"
+	"os"
+	"path/filepath"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"github.com/sunjin110/pdf_manager/core"
 	"github.com/sunjin110/pdf_manager/desktop/ui/uidata"
 	"github.com/sunjin110/pdf_manager/desktop/ui/uimodel"
 )
 
 func main() {
-	a := app.New()
+	a := app.NewWithID("info.sunjin.pdf_manager_desktop")
+
 	w := a.NewWindow("🐼 PDF Manager")
 
+	pdfManagerCore, err := core.NewCore(filepath.Join(a.Storage().RootURI().Path(), "app.db"))
+	if err != nil {
+		fmt.Errorf("failed new core. err: %v", err)
+		os.Exit(1)
+	}
+
 	a.Settings().SetTheme(uidata.DarkTheme)
-
 	title := widget.NewLabel("タイトル")
-
 	content := container.NewStack()
-
-	splitContent := container.NewHSplit(makeNav(w, uidata.Navigations, title, content), content)
+	splitContent := container.NewHSplit(makeNav(w, pdfManagerCore, uidata.Navigations, title, content), content)
 	splitContent.SetOffset(0.3)
 	w.SetContent(splitContent)
 
@@ -27,7 +36,7 @@ func main() {
 	w.ShowAndRun()
 }
 
-func makeNav(parentWindow fyne.Window, navigations uimodel.Navigations, title *widget.Label, content *fyne.Container) fyne.CanvasObject {
+func makeNav(parentWindow fyne.Window, pdfManagerCore core.Core, navigations uimodel.Navigations, title *widget.Label, content *fyne.Container) fyne.CanvasObject {
 	navigationMap := make(map[string]uimodel.Navigation, len(navigations))
 	for _, navigation := range navigations {
 		navigationMap[navigation.ID] = navigation

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
@@ -12,8 +10,6 @@ import (
 )
 
 func main() {
-	fmt.Println("hello world")
-
 	a := app.New()
 	w := a.NewWindow("🐼 PDF Manager")
 

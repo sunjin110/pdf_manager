@@ -7,9 +7,10 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/widget"
+	"github.com/sunjin110/pdf_manager/core"
 )
 
-func UploadCompanyAndPasswordCSVView(w fyne.Window) fyne.CanvasObject {
+func UploadCompanyAndPasswordCSVView(w fyne.Window, pdfManagerCore core.Core) fyne.CanvasObject {
 
 	textArea := widget.NewMultiLineEntry()
 	textArea.SetPlaceHolder("アップロード内容を反映する")

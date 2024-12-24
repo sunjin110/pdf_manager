@@ -66,7 +66,7 @@ func makeNav(parentWindow fyne.Window, pdfManagerCore core.Core, navigations uim
 	tree.OnSelected = func(id widget.TreeNodeID) {
 		navigation := navigationMap[id]
 		title.SetText(navigation.Title)
-		content.Objects = []fyne.CanvasObject{navigation.View(parentWindow)}
+		content.Objects = []fyne.CanvasObject{navigation.View(parentWindow, pdfManagerCore)}
 	}
 	return tree
 }

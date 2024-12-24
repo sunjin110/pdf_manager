@@ -1,6 +1,9 @@
 package uimodel
 
-import "fyne.io/fyne/v2"
+import (
+	"fyne.io/fyne/v2"
+	"github.com/sunjin110/pdf_manager/core"
+)
 
 type Navigations []Navigation
 
@@ -15,5 +18,5 @@ func (navigations Navigations) IDs() []string {
 type Navigation struct {
 	ID    string
 	Title string
-	View  func(w fyne.Window) fyne.CanvasObject
+	View  func(w fyne.Window, pdfManagerCore core.Core) fyne.CanvasObject
 }

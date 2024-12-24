@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"path/filepath"
 
@@ -22,6 +23,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed new core. err: %v", err)
 	}
+	fmt.Println("sqlite path is ", filepath.Join(a.Storage().RootURI().Path(), "app.db"))
 
 	a.Settings().SetTheme(uidata.DarkTheme)
 	title := widget.NewLabel("タイトル")

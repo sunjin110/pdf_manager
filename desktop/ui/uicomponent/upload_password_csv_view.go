@@ -1,8 +1,6 @@
 package uicomponent
 
 import (
-	"io"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
@@ -26,14 +24,13 @@ func UploadCompanyAndPasswordCSVView(w fyne.Window, pdfManagerCore core.Core) fy
 			}
 			defer reader.Close()
 
-			// ファイルの中身を読み取る
-			// TODO CSVの内容を読み取る様にする
-			content, err := io.ReadAll(reader)
-			if err != nil {
+			if err := pdfManagerCore.RegistPasswordByCSV(reader); err != nil {
 				dialog.ShowError(err, w)
+				textArea.SetText("failed")
 				return
 			}
-			textArea.SetText(string(content))
+
+			textArea.SetText("success!")
 		}, w)
 	})
 

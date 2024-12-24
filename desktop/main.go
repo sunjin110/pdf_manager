@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"log"
 	"path/filepath"
 
 	"fyne.io/fyne/v2"
@@ -21,8 +20,7 @@ func main() {
 
 	pdfManagerCore, err := core.NewCore(filepath.Join(a.Storage().RootURI().Path(), "app.db"))
 	if err != nil {
-		fmt.Errorf("failed new core. err: %v", err)
-		os.Exit(1)
+		log.Fatalf("failed new core. err: %v", err)
 	}
 
 	a.Settings().SetTheme(uidata.DarkTheme)

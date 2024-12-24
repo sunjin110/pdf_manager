@@ -19,11 +19,7 @@ func main() {
 
 	content := container.NewStack()
 
-	mainContainer := container.NewBorder(
-		content, nil, nil, nil,
-	)
-
-	splitContent := container.NewHSplit(makeNav(w, uidata.Navigations, title, content), mainContainer)
+	splitContent := container.NewHSplit(makeNav(w, uidata.Navigations, title, content), content)
 	splitContent.SetOffset(0.3)
 	w.SetContent(splitContent)
 

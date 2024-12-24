@@ -4,6 +4,7 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2/widget"
 	"github.com/sunjin110/pdf_manager/core"
 )
@@ -14,7 +15,7 @@ func UploadCompanyAndPasswordCSVView(w fyne.Window, pdfManagerCore core.Core) fy
 	textArea.SetPlaceHolder("アップロード内容を反映する")
 
 	uploadButton := widget.NewButton("Upload File", func() {
-		dialog.ShowFileOpen(func(reader fyne.URIReadCloser, err error) {
+		fileDialog := dialog.NewFileOpen(func(reader fyne.URIReadCloser, err error) {
 			if err != nil {
 				dialog.ShowError(err, w)
 				return
@@ -32,6 +33,9 @@ func UploadCompanyAndPasswordCSVView(w fyne.Window, pdfManagerCore core.Core) fy
 
 			textArea.SetText("success!")
 		}, w)
+		fileDialog.SetFilter(storage.NewExtensionFileFilter([]string{".csv"}))
+		fileDialog.Show()
+		// dialog.SetFilter()
 	})
 
 	content := container.NewVBox(

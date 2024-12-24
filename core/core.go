@@ -1,7 +1,9 @@
 package core
 
 import (
+	"context"
 	"fmt"
+	"io"
 
 	"github.com/sunjin110/pdf_manager/core/infrastructure/repository"
 	"github.com/sunjin110/pdf_manager/core/infrastructure/sqlite"
@@ -9,6 +11,7 @@ import (
 )
 
 type Core interface {
+	RegistPasswordByCSV(csvReader io.Reader) error
 }
 
 type core struct {
@@ -33,4 +36,8 @@ func NewCore(dbPath string) (Core, error) {
 		securityUsecase: usecase.NewSecurity(securityRepo),
 		passwordUsecase: usecase.NewPassword(passwordRepo),
 	}, nil
+}
+
+func (c *core) RegistPasswordByCSV(csvReader io.Reader) error {
+	return c.passwordUsecase.RegistPasswordsByCSV(context.Background(), csvReader)
 }

@@ -3,6 +3,7 @@ package sqlite
 import (
 	"database/sql"
 	"embed"
+	"errors"
 	"fmt"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -44,8 +45,10 @@ func Migrate(dbPath string) error {
 	}
 
 	if err := m.Up(); err != nil {
+		if errors.Is(err, migrate.ErrNoChange) {
+			return nil
+		}
 		return fmt.Errorf("failed to migrate up. err: %w", err)
 	}
-
 	return nil
 }

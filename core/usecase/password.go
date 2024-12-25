@@ -63,8 +63,8 @@ func (p *password) RegistPasswordsByCSV(ctx context.Context, csvReader io.Reader
 
 		passwords = append(passwords, model.Password{
 			ID:         u.String(),
-			TargetName: line[1],
-			Password:   line[2],
+			TargetName: line[0],
+			Password:   line[1],
 		})
 	}
 

@@ -10,10 +10,8 @@ import (
 )
 
 func UploadCompanyAndPasswordCSVView(w fyne.Window, pdfManagerCore core.Core) fyne.CanvasObject {
-
 	textArea := widget.NewMultiLineEntry()
 	textArea.SetPlaceHolder("アップロード内容を反映する")
-
 	uploadButton := widget.NewButton("Upload File", func() {
 		fileDialog := dialog.NewFileOpen(func(reader fyne.URIReadCloser, err error) {
 			if err != nil {
@@ -35,7 +33,6 @@ func UploadCompanyAndPasswordCSVView(w fyne.Window, pdfManagerCore core.Core) fy
 		}, w)
 		fileDialog.SetFilter(storage.NewExtensionFileFilter([]string{".csv"}))
 		fileDialog.Show()
-		// dialog.SetFilter()
 	})
 
 	content := container.NewVBox(

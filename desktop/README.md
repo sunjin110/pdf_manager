@@ -1,36 +1,18 @@
 # fyne
 
+## macでwindowsのappをbuildする方法
 
-# ホゲ
-```go
-func main() {
-	myApp := app.New()
-	myWindow := myApp.NewWindow("Table Widget")
 
-	tree := widget.NewTree(
-		func(id widget.TreeNodeID) []widget.TreeNodeID {
-			switch id {
-			case "":
-				return []widget.TreeNodeID{"a", "b", "c"}
-			case "a":
-				return []widget.TreeNodeID{"a1", "a2"}
-			}
-			return []string{}
-		},
-		func(id widget.TreeNodeID) bool {
-			return id == "" || id == "a"
-		},
-		func(branch bool) fyne.CanvasObject {
-			if branch {
-				return widget.NewLabel("Branch template")
-			}
-			return widget.NewLabel("Leaf template")
-		},
-		func(id widget.TreeNodeID, branch bool, o fyne.CanvasObject) {
-			text := id
-			if branch {
-				text += " (branch)"
-			}
-			o.(*widget.Label).SetText(text)
-		})
+```sh
+# windows用のクロスコンパイラをinstall
+brew install mingw-w64
+
+# Windows用のクロスコンパイルに必要な環境をセット
+export CGO_ENABLED=1
+export GOOS=windows
+export GOARCH=amd64
+export CC=x86_64-w64-mingw32-gcc
+
+# その上で fyne package
+fyne package -os windows -icon Icon.png -name "PDFManager"
 ```

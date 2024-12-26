@@ -158,15 +158,15 @@ func (view *protectPDFView) makeGenerateProtectedPDFsButtonUI() *widget.Button {
 				fileName: pdf.fileName(),
 				data:     buf,
 			})
-
-			// zipにする
-			zipBuf, err := createZipArchive(protectedPDFs)
-			if err != nil {
-				dialog.ShowError(err, view.w)
-				return
-			}
-			view.showProtectedPDFsZipSaveDialog(zipBuf)
 		}
+
+		// zipにする
+		zipBuf, err := createZipArchive(protectedPDFs)
+		if err != nil {
+			dialog.ShowError(err, view.w)
+			return
+		}
+		view.showProtectedPDFsZipSaveDialog(zipBuf)
 
 	})
 	button.Hide()

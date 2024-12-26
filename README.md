@@ -2,5 +2,5 @@
 
 ## functions
 
-[ ] bulk pdf password protect
+[x] bulk pdf password protect
 

@@ -14,4 +14,5 @@ type Password interface {
 	GetAll(ctx context.Context) ([]model.Password, error)
 	// Err: NotFound
 	GetByTargetName(ctx context.Context, targetName string) (model.Password, error)
+	FindByTargetNames(ctx context.Context, targetNames []string) (model.Passwords, error)
 }
